@@ -1,0 +1,78 @@
+{
+  "project_info": {
+    "project_number": "314553853880",
+    "firebase_url": "https://wipaydb.firebaseio.com",
+    "project_id": "wipaydb",
+    "storage_bucket": "wipaydb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:314553853880:android:51410222a0a57235",
+        "android_client_info": {
+          "package_name": "ke.co.stashare.wipaydb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "314553853880-i89jdh0qbjl5slmhhut0kgk3ujit9rng.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAR1tvDfK8oShGAR8_TCjauRx2Lv5_T-q8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "314553853880-i89jdh0qbjl5slmhhut0kgk3ujit9rng.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:314553853880:android:9809f18bcd8b31a0",
+        "android_client_info": {
+          "package_name": "ke.co.stashare.wipay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "314553853880-i89jdh0qbjl5slmhhut0kgk3ujit9rng.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAR1tvDfK8oShGAR8_TCjauRx2Lv5_T-q8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
