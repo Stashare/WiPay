@@ -31,7 +31,7 @@
         android:textAlignment="center"
         android:gravity="center"
         android:visibility="gone"
-        android:text="No Registered Business Found" />
+        android:text="No Wifi found" />
 
 
     <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -40,7 +40,7 @@
         android:visibility="visible"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:clipToPadding="false"
         android:paddingBottom="@dimen/md_keylines"
         android:scrollbars="vertical" />

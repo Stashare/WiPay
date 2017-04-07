@@ -22,5 +22,13 @@
     <color name="pink_200">#ff4081</color>
     <color name="grey">#E2E2E2</color>
     <color name="red">#ff242f</color>
+    <color name="twitter">#1e88e5</color>
+
+
+    <color name="dark_grey">#424242</color>
+    <color name="light_grey">#e1e1e1</color>
+    <color name="medium_grey">#9E9E9E</color>
+    <color name="button_grey">#757575</color>
+
 </resources>
 

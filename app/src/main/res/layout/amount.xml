@@ -1,0 +1,140 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="horizontal" >
+
+    <ScrollView
+        android:fadeScrollbars="false"
+        android:fitsSystemWindows="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:gravity="center_horizontal"
+            android:layout_height="wrap_content">
+
+            <include layout="@layout/item_list"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"/>
+
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_marginTop="8dp"
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/notes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_money_36px" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:textColorHint="@color/button_grey"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginTop="8dp">
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/amount"
+                        android:layout_width="match_parent"
+                        android:maxLength="9"
+                        android:inputType="number"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter Amount...">
+
+                        <requestFocus/>
+                    </android.support.v7.widget.AppCompatEditText>
+
+                </android.support.design.widget.TextInputLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_marginTop="8dp"
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/lock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_lock_outline" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:textColorHint="@color/button_grey"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginTop="8dp">
+
+                    <com.scottyab.showhidepasswordedittext.ShowHidePasswordEditText
+                        android:id="@+id/pin"
+                        android:layout_width="match_parent"
+                        android:inputType="number"
+                        android:layout_height="wrap_content"
+                        app:drawable_hide="@drawable/ic_visibility_off"
+                        app:drawable_show="@drawable/ic_visibility" />
+
+                </android.support.design.widget.TextInputLayout>
+
+
+            </LinearLayout>
+
+            <GridLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_gravity="fill_horizontal"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <Button
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:textColor="@android:color/holo_red_dark"
+                        android:id="@+id/cancel"
+                        android:text="Cancel" />
+
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:id="@+id/send"
+                        android:textColor="?attr/colorPrimary"
+                        android:text="Send" />
+
+
+
+                </LinearLayout>
+            </GridLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

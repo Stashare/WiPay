@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".ui.Main">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_dear_customer_kindly_select_your_method_of_payment"
+        android:textAppearance="@style/MaterialAnimations.TextAppearance.Title.Inverse" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp">
+
+        <RadioButton
+            android:id="@+id/radioButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:onClick="radioButtonClicked"
+            android:text="M-PESA"
+            android:textColor="@color/cardview_light_background" />
+
+        <RadioButton
+            android:textColor="@color/cardview_light_background"
+            android:id="@+id/radioButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="radioButtonClicked"
+            android:text="EQUITEL" />
+
+        <RadioButton
+            android:textColor="@color/cardview_light_background"
+            android:id="@+id/radioButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:onClick="radioButtonClicked"
+            android:text="AIRTEL MONEY" />
+
+        <RadioButton
+            android:textColor="@color/cardview_light_background"
+            android:id="@+id/radioButton4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:onClick="radioButtonClicked"
+            android:text="ORANGE MONEY" />
+
+
+    </RadioGroup>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_alignParentStart="true"
+        android:onClick="addHotspotClick"
+        android:textSize="16sp"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
+        android:textColor="@color/type_message_dark"
+        android:id="@+id/add_hotspot"
+        android:text="ADD HOTSPOT" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:onClick="nextButton"
+        android:textSize="16sp"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
+        style="?android:attr/borderlessButtonStyle"
+        android:textColor="@color/cardview_light_background"
+        android:id="@+id/cancel"
+        android:text="NEXT" />
+
+
+</RelativeLayout>

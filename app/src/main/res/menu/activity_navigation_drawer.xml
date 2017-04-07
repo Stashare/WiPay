@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/make_payment"
+            android:icon="@drawable/ic_payment_green_72"
+            android:title="Make Payment" />
+        <item
+            android:id="@+id/withdrawal"
+            android:icon="@drawable/ic_wallet_green_72"
+            android:title="Withdrawal" />
+        <item
+            android:id="@+id/buy_airtime"
+            android:icon="@drawable/ic_sim_green_72"
+            android:title="Buy Airtime" />
+        <item
+            android:id="@+id/account"
+            android:icon="@drawable/ic_account_green_72"
+            android:title="My Account" />
+    </group>
+
+    <group android:id="@+id/my_id">
+        <!-- Divider will appear above this item -->
+        <item
+            android:id="@+id/settings"
+            android:icon="@drawable/ic_setting_green_72"
+            android:title="Settings" />
+        <item
+            android:id="@+id/help"
+            android:icon="@drawable/ic_help_green_72"
+            android:title="Help &amp; feedback" />
+    </group>
+
+
+</menu>

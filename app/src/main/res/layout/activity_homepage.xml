@@ -3,9 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_content"
+    android:background="@color/light_grey"
     android:clickable="true"
+    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
-    android:background="@android:color/background_light"
     android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
@@ -14,36 +15,43 @@
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
+
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            android:background="@drawable/backrepeat"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+
+        </android.support.v7.widget.Toolbar>
+
 
     </android.support.design.widget.AppBarLayout>
 
-    <TextView
-        android:id="@+id/empty_view"
-        android:layout_width="match_parent"
-        android:textColor="@color/colorPrimaryDark"
-        android:layout_height="match_parent"
-        android:textAlignment="center"
-        android:gravity="center"
-        android:visibility="gone"
-        android:text="No Registered Business Found" />
 
+    <ScrollView
+        android:paddingEnd="2dp"
+        android:paddingStart="2dp"
+        android:scrollbars="vertical"
+        android:scrollbarSize="50dip"
+        android:fadeScrollbars="false"
+        android:layout_width="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/my_recycler_view"
-        android:visibility="visible"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
-        android:paddingBottom="@dimen/md_keylines"
-        android:scrollbars="vertical" />
+        android:paddingBottom="13dp"
+        android:paddingTop="13dp"
+        android:paddingEnd="40dp"
+        android:paddingStart="40dp"
+        android:scrollbars="none" />
 
+    </ScrollView>
 
 </android.support.design.widget.CoordinatorLayout>

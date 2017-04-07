@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_content"
+    android:clickable="true"
+    android:layout_width="match_parent"
+    android:background="@color/background"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imageViewCompany"
+        android:tint="@color/white"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="130dp"
+        android:layout_marginTop="75dp"
+        android:src="@drawable/placeholder"
+        android:layout_height="130dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/image_choose"
+        app:backgroundTint="@color/type_message_light"
+        android:clickable="true"
+        app:fabSize="normal"
+        android:src="@drawable/ic_camera_48_white"
+        app:layout_anchor="@id/imageViewCompany"
+        app:layout_anchorGravity="bottom|right|end" />
+
+
+   <ScrollView
+       android:layout_marginTop="210dp"
+       android:fadeScrollbars="false"
+       android:fitsSystemWindows="true"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical" >
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="wrap_content">
+
+
+        <android.support.v7.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:textSize="16sp"
+        android:textColor="@color/red"
+        android:text="Please fill in all the required details below " />
+
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="8dp"/>
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/mpesa"
+        android:layout_width="match_parent"
+        android:maxLength="7"
+        android:inputType="number"
+        android:layout_height="wrap_content"
+        android:hint="Add MPESA Paybill"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="8dp"/>
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/equity_account"
+        android:layout_width="match_parent"
+        android:maxLength="15"
+        android:inputType="number"
+        android:layout_height="wrap_content"
+        android:hint="Add Equity Account No"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="8dp"/>
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/airtel"
+        android:layout_width="match_parent"
+        android:maxLength="9"
+        android:inputType="number"
+        android:layout_height="wrap_content"
+        android:hint="Add Airtel Money Paybill"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="8dp"/>
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/orange"
+        android:layout_width="match_parent"
+        android:maxLength="9"
+        android:inputType="number"
+        android:layout_height="wrap_content"
+        android:hint="Add Orange Money Paybill"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:textColorHint="@color/button_grey"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="8dp"/>
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/location"
+        android:layout_width="match_parent"
+        android:maxLength="9"
+        android:ellipsize="end"
+        android:layout_height="wrap_content"
+        android:hint="Add Business Location"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="8dp"/>
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/county"
+        android:layout_width="match_parent"
+        android:maxLength="9"
+        android:ellipsize="end"
+        android:layout_height="wrap_content"
+        android:hint="Add County Name" />
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="8dp"/>
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/situated_at"
+        android:layout_width="match_parent"
+        android:ellipsize="end"
+        android:layout_height="wrap_content"
+        android:hint="Add the Business establishment"/>
+
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:orientation="horizontal">
+
+         <Button
+             android:id="@+id/buttonAdd"
+             android:theme="@style/Button"
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+             android:layout_weight="1"
+             android:text="Add" />
+
+     </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

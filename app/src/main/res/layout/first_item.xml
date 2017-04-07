@@ -13,6 +13,16 @@
         android:src="@drawable/placeholder" />
 
 
+
+    <ImageView
+        android:id="@+id/tick"
+        android:layout_alignParentEnd="true"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:scaleType="centerCrop"
+        android:visibility="visible"
+        android:src="@drawable/ic_check_48" />
+
     <TextView
         android:id="@+id/list_title"
         android:layout_marginTop="10dp"
@@ -40,12 +50,25 @@
 
     <android.support.v7.widget.AppCompatButton
         android:layout_width="wrap_content"
-        android:id="@+id/unpay"
+        android:id="@+id/pay"
+        android:layout_centerInParent="true"
+        android:textStyle="bold"
         android:visibility="visible"
+        android:theme="@style/Button"
+        android:textColor="@color/cardview_light_background"
+        android:textAlignment="center"
+        android:layout_below="@id/list_desc"
+        android:text="Pay"
+        android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:id="@+id/unpay"
+        android:visibility="gone"
         android:layout_centerInParent="true"
         android:textStyle="bold"
         android:theme="@style/ButtonUnpay"
-        android:textColor="@color/type_message_dark"
+        android:textColor="@color/background_redm"
         android:textAlignment="center"
         android:layout_below="@id/list_desc"
         android:text="PAY"

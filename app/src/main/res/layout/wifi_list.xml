@@ -43,7 +43,7 @@
 
     <LinearLayout
         android:layout_alignParentEnd="true"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_below="@id/access_point"
         android:orientation="horizontal"
         android:layout_width="wrap_content"

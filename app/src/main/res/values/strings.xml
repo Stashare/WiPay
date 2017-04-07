@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">WiPay</string>
     <string name="refresh">refresh</string>
+    <string name="close">close</string>
+    <string name="endless_scrolling_description">EndlessScrolling + Drag + Swipe-To-Delete w/rear-views + Scroll Animations + ActionModeHelper + UndoHelper + Scrollable Headers and Footers</string>
+    <string name="hello_dear_customer_kindly_select_your_method_of_payment">Hello dear customer, kindly select your method of payment...</string>
+    <string name="title_activity_navigation">Navigation</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>

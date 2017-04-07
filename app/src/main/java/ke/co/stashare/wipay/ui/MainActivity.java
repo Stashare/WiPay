@@ -1,4 +1,4 @@
-package ke.co.stashare.wipay;
+package ke.co.stashare.wipay.ui;
 
 import android.app.ProgressDialog;
 import android.app.SearchManager;
@@ -28,30 +28,30 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
+import com.scottyab.showhidepasswordedittext.ShowHidePasswordEditText;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
-import java.util.StringTokenizer;
 
 import ke.co.stashare.wipay.Adapters.RecyclerAdapter;
-import ke.co.stashare.wipay.helper.SharedPrefManager;
+import ke.co.stashare.wipay.R;
+import ke.co.stashare.wipay.model.OldWifi;
 import ke.co.stashare.wipay.helper.User;
 import ke.co.stashare.wipay.model.Hotspots;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -63,13 +63,17 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "TAG";
     String wifi_name = null;
     String payB;
-
+    String amount;
+    String password;
 
     List<ScanResult> temp_result;
     List<ScanResult> results;
     List<ScanResult> old_results;
     DividerItemDecoration mDividerItemDecoration;
     List<Hotspots> checkSpots;
+    List<ScanResult> finalOutput;
+    List<ScanResult> old_list;
+    List<ScanResult>temp_final;
 
     //view objects
     EditText editTextPaybill;
@@ -78,20 +82,24 @@ public class MainActivity extends AppCompatActivity {
 
     //our database reference object
     DatabaseReference databasePaybills;
-
+    int index=0;
+    String ssd;
+    String first_tym;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setTheme(R.style.AppTheme);
+        /*
+        setTheme(R.style.AppThemeC);
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+                **/
+
 
         setContentView(R.layout.activity_main);
 
         //getting the reference of artists node
-        databasePaybills = FirebaseDatabase.getInstance().getReference("paybills");
-
+        databasePaybills = FirebaseDatabase.getInstance().getReference("Registered_Hotspots");
 
 
 
@@ -131,14 +139,21 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
 
         temp_result= new ArrayList<>();
+
         //list to store artists
         checkSpots = new ArrayList<>();
 
-        adapter=new RecyclerAdapter(temp_result, new RecyclerAdapter.OnItemClickListener() {
+        finalOutput= new ArrayList<>();
+
+        temp_final= new ArrayList<>();
+
+
+        adapter=new RecyclerAdapter(finalOutput, new RecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(ScanResult item) {
                 wifi_name= item.SSID;
-                onSearchClick();
+                promptPayBill();
+                //onSearchClick();
                 //Toast.makeText(MainActivity.this, wifi_name, Toast.LENGTH_LONG).show();
 
 
@@ -150,9 +165,9 @@ public class MainActivity extends AppCompatActivity {
                 //String onlongclck="Long clicked " + wifi_name;
                 //Toast.makeText(MainActivity.this, onlongclck, Toast.LENGTH_LONG).show();
 
-               checkHotspotExistence(wifi_name);
+               //checkHotspotExistence(wifi_name);
 
-                //showPaybillDialog();
+                showPaybillDialog();
 
             }
 
@@ -184,7 +199,6 @@ public class MainActivity extends AppCompatActivity {
 
                 results = wifi.getScanResults();
 
-                old_results=null;
 
 
                 Comparator<ScanResult> comparator = new Comparator<ScanResult>() {
@@ -234,6 +248,7 @@ public class MainActivity extends AppCompatActivity {
 
                     old_results= get_saved_wifiList.getResults();
 
+
                     // Loop old_results items
                     for (ScanResult person2 : old_results) {
                         // Loop original scan results items
@@ -277,7 +292,110 @@ public class MainActivity extends AppCompatActivity {
 
                 Log.d(TAG, String.valueOf(temp_result));
 
-                if(!temp_result.isEmpty()) {
+                for (final ScanResult reslt : temp_result) {
+
+                    final String ssd = reslt.SSID;
+
+                    final Query firebaseRef = FirebaseDatabase.getInstance().getReference("paybills")
+                            .orderByChild("hotspotName").equalTo(ssd);
+
+                    //attaching value event listener
+                    firebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            //iterating through all the nodes
+                            ScanResult output_signal = null;
+
+
+                            if (dataSnapshot.exists()) {
+                                output_signal = reslt;
+
+                                temp_final.add(output_signal);
+
+
+                                //check whether finalOutput contain an item with the same ssid as output_signal.ssid
+                            }
+                        }
+
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+                }
+
+
+
+                Comparator<ScanResult> comp = new Comparator<ScanResult>() {
+                    @Override
+                    public int compare(ScanResult lhs, ScanResult rhs) {
+                        return (lhs.level >rhs.level ? -1 : (lhs.level==rhs.level ? 0 : 1));
+                    }
+                };
+
+
+                Collections.sort(temp_final, comp);
+
+
+                if(old_list == null){
+
+                    finalOutput.clear();
+
+                    for (int i = 0; i<temp_final.size(); i++) {
+
+                        finalOutput.add(i, temp_final.get(i));
+
+                    }
+
+                        OldWifi oldWifi = new OldWifi(finalOutput);
+
+                            save_old(getApplicationContext(), oldWifi);
+
+
+
+                }
+                else{
+
+                    OldWifi get_old = get_old(getApplicationContext());
+
+                    old_list = get_old.getResults();
+
+
+
+                    // Loop old_results items
+                    for (ScanResult person2 : old_list) {
+                        // Loop original scan results items
+                        boolean found = false;
+                        for (ScanResult person1 : temp_final) {
+                            if (Objects.equals(person2.SSID, person1.SSID)) {
+                                found = true;
+                            }
+                        }
+                        if (!found) {
+
+                            for (int i = 0; i<temp_final.size(); i++) {
+
+                                finalOutput.add(i, temp_final.get(i));
+
+                            }
+
+                            OldWifi oldWifi = new OldWifi(finalOutput);
+
+                            save_old(getApplicationContext(), oldWifi);
+                        }
+
+                    }
+
+
+                        }
+
+
+
+                if(!finalOutput.isEmpty()) {
+
                     dialog.dismiss();
                     adapter.notifyDataSetChanged();
                     recyclerView.setVisibility(View.VISIBLE);
@@ -292,14 +410,20 @@ public class MainActivity extends AppCompatActivity {
                 }
 
 
+                Log.d("TAG_OLD_FULL", String.valueOf(finalOutput));
+
+                temp_final.clear();
+
+
+
             }
         }, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
 
         // Initiate a scan.
         wifi.startScan();
 
-        //getdata();
     }
+
 
     private void updatePaybillDialog() {
 
@@ -344,6 +468,76 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void promptPayBill(){
+
+        String paybill_test= "765456";
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.amount_pin, null);
+        dialogBuilder.setView(dialogView);
+
+        final ImageView notes=(ImageView)dialogView.findViewById(R.id.notes);
+        final ImageView lock =(ImageView)dialogView.findViewById(R.id.lock);
+        final EditText editTextAmount = (EditText) dialogView.findViewById(R.id.amount);
+        final ShowHidePasswordEditText showHidePasswordEditText = (ShowHidePasswordEditText)dialogView.findViewById(R.id.pin);
+        final Button buttonSend = (Button) dialogView.findViewById(R.id.send);
+        final Button buttonCancel=(Button) dialogView.findViewById(R.id.cancel);
+        final AlertDialog b = dialogBuilder.create();
+        b.setCanceledOnTouchOutside(false);
+        b.show();
+
+        /*
+        showHidePasswordEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    lock.setColorFilter(getResources().getColor(R.color.red), android.graphics.PorterDuff.Mode.MULTIPLY);
+
+                }else{
+                    lock.setColorFilter(getResources().getColor(R.color.button_grey), android.graphics.PorterDuff.Mode.MULTIPLY);
+
+
+                }
+            }
+        });
+
+        **/
+
+        buttonSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                amount = editTextAmount.getText().toString().trim();
+                //String genre = spinnerGenre.getSelectedItem().toString();
+                password = showHidePasswordEditText.getText().toString().trim();
+
+                if (!TextUtils.isEmpty(amount) && !TextUtils.isEmpty(password) ) {
+
+                    Toast.makeText(MainActivity.this, amount + " "+ password, Toast.LENGTH_LONG).show();
+
+                    b.dismiss();
+                }
+                else{
+                    Toast.makeText(MainActivity.this, "Please fill in all the fields", Toast.LENGTH_LONG).show();
+
+                }
+            }
+        });
+
+
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                b.dismiss();
+
+                /*
+                * we will code this method to delete the artist
+                * */
+
+            }
+        });
+    }
+
 
 
     private void showPaybillDialog() {
@@ -488,7 +682,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_refresh) {
-            refresh();
+            //refresh();
         }
 
         return super.onOptionsItemSelected(item);
@@ -520,13 +714,13 @@ public class MainActivity extends AppCompatActivity {
                 results = wifi.getScanResults();
 
 
-                old_results=null;
+                old_results = null;
 
 
                 Comparator<ScanResult> comparator = new Comparator<ScanResult>() {
                     @Override
                     public int compare(ScanResult lhs, ScanResult rhs) {
-                        return (lhs.level >rhs.level ? -1 : (lhs.level==rhs.level ? 0 : 1));
+                        return (lhs.level > rhs.level ? -1 : (lhs.level == rhs.level ? 0 : 1));
                     }
                 };
 
@@ -534,15 +728,14 @@ public class MainActivity extends AppCompatActivity {
                 Collections.sort(results, comparator);
 
 
-
-                if(old_results == null){
+                if (old_results == null) {
 
                     temp_result.clear();
 
-                    if(results.size()< 3) {
+                    if (results.size() < 3) {
 
 
-                        for (int i = 0; i<results.size(); i++) {
+                        for (int i = 0; i < results.size(); i++) {
                             temp_result.add(i, results.get(i));
                             User user = new User(temp_result);
 
@@ -550,7 +743,7 @@ public class MainActivity extends AppCompatActivity {
 
                         }
 
-                    }else {
+                    } else {
                         for (int i = 0; i < 3; i++) {
                             temp_result.add(i, results.get(i));
 
@@ -562,13 +755,11 @@ public class MainActivity extends AppCompatActivity {
                     }
 
 
+                } else {
 
-                }
-                else {
+                    User get_saved_wifiList = get_User_From_Shared_Prefs(getApplicationContext());
 
-                    User get_saved_wifiList= get_User_From_Shared_Prefs(getApplicationContext());
-
-                    old_results= get_saved_wifiList.getResults();
+                    old_results = get_saved_wifiList.getResults();
 
                     // Loop old_results items
                     for (ScanResult person2 : old_results) {
@@ -583,10 +774,10 @@ public class MainActivity extends AppCompatActivity {
 
                             temp_result.clear();
 
-                            if(results.size()< 3) {
+                            if (results.size() < 3) {
 
 
-                                for (int i = 0; i<results.size(); i++) {
+                                for (int i = 0; i < results.size(); i++) {
                                     temp_result.add(i, results.get(i));
                                     User user = new User(temp_result);
 
@@ -594,7 +785,7 @@ public class MainActivity extends AppCompatActivity {
 
                                 }
 
-                            }else {
+                            } else {
                                 for (int i = 0; i < 3; i++) {
                                     temp_result.add(i, results.get(i));
 
@@ -614,19 +805,80 @@ public class MainActivity extends AppCompatActivity {
 
                 Log.d(TAG, String.valueOf(temp_result));
 
-                if(!temp_result.isEmpty()) {
+                for (final ScanResult reslt : temp_result) {
+
+                    final String ssd = reslt.SSID;
+
+                    final Query firebaseRef = FirebaseDatabase.getInstance().getReference("paybills")
+                            .orderByChild("hotspotName").equalTo(ssd);
+
+                    //attaching value event listener
+                    firebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            //iterating through all the nodes
+                            ScanResult output_signal = null;
+
+
+                            if (dataSnapshot.exists()) {
+                                output_signal = reslt;
+
+                                temp_final.add(output_signal);
+
+
+                                //check whether finalOutput contain an item with the same ssid as output_signal.ssid
+                            }
+                        }
+
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+                }
+
+                /*
+
+                if(!temp_final.isEmpty()) {
+
+                    finalOutput.clear();
+
+                    for (int i = 0; i<temp_final.size(); i++) {
+
+                        finalOutput.add(i, temp_final.get(i));
+
+                    }
+
+                }
+                else
+                {
+                    finalOutput.clear();
+
+                }
+
+                temp_final.clear();
+                **/
+
+                if(!temp_final.isEmpty()){
+
                     dialog.dismiss();
                     adapter.notifyDataSetChanged();
                     recyclerView.setVisibility(View.VISIBLE);
                     empty.setVisibility(View.GONE);
-                }
-                else
-                {
+
+                }else {
+
                     dialog.dismiss();
                     adapter.notifyDataSetChanged();
                     recyclerView.setVisibility(View.GONE);
                     empty.setVisibility(View.VISIBLE);
                 }
+
+                Log.d("TAG_OLD_FULL", String.valueOf(temp_final));
+
 
 
             }
@@ -649,6 +901,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public static void save_old(Context context, OldWifi _oldwifi) {
+        SharedPreferences appSharedPrefs = PreferenceManager
+                .getDefaultSharedPreferences(context.getApplicationContext());
+        SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(_oldwifi);
+        prefsEditor.putString("old", json);
+        prefsEditor.apply();
+
+    }
+
     public static User get_User_From_Shared_Prefs(Context context) {
 
         SharedPreferences appSharedPrefs = PreferenceManager
@@ -660,6 +923,19 @@ public class MainActivity extends AppCompatActivity {
         User user = gson.fromJson(json, User.class);
         return user;
     }
+
+    public static OldWifi get_old(Context context) {
+
+        SharedPreferences appSharedPrefs = PreferenceManager
+                .getDefaultSharedPreferences(context.getApplicationContext());
+        Gson gson = new Gson();
+        String json = appSharedPrefs.getString("old", "");
+
+
+        OldWifi oldWifi = gson.fromJson(json, OldWifi.class);
+        return oldWifi;
+    }
+
 
     public void onSearchClick() {
         try {

@@ -1,4 +1,4 @@
-package ke.co.stashare.wipay;
+package ke.co.stashare.wipay.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,9 +14,6 @@ import java.util.Map;
 import ke.co.stashare.wipay.helper.UtilPermissions;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
-import static android.Manifest.permission.MODIFY_AUDIO_SETTINGS;
-import static android.Manifest.permission.READ_PHONE_STATE;
-import static android.Manifest.permission.READ_SMS;
 
 /**
  * Created by Ken Wainaina on 16/03/2017.
@@ -60,7 +57,7 @@ public class Splash extends AppCompatActivity {
                 }
                 else
   */
-                startActivity(new Intent(Splash.this, MainActivity.class));
+                startActivity(new Intent(Splash.this, HomePage.class));
                 finish();
             }
         };
