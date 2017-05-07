@@ -2,8 +2,11 @@ package ke.co.stashare.wipay.ui;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,10 +19,18 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 
 import ke.co.stashare.wipay.R;
+import ke.co.stashare.wipay.ui.Fragments.BuyAirtime;
+import ke.co.stashare.wipay.ui.Fragments.Help;
+import ke.co.stashare.wipay.ui.Fragments.Home;
+import ke.co.stashare.wipay.ui.Fragments.MyAccount;
+import ke.co.stashare.wipay.ui.Fragments.Payment;
+import ke.co.stashare.wipay.ui.Fragments.Settings;
+import ke.co.stashare.wipay.ui.Fragments.Withdrawal;
 
 public class Navigation extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    DrawerLayout drawer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +54,7 @@ public class Navigation extends AppCompatActivity
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+       drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -80,33 +91,63 @@ public class Navigation extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+
+
         }
+
 
         return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        // Create a new fragment and specify the fragment to show based on nav item clicked
+        Fragment fragment = null;
+        Class fragmentClass;
+
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.make_payment) {
-            // Handle the camera action
+            fragmentClass = Payment.class;
+
         } else if (id == R.id.withdrawal) {
+
+            fragmentClass = Withdrawal.class;
 
         } else if (id == R.id.buy_airtime) {
 
+            fragmentClass = BuyAirtime.class;
+
         } else if (id == R.id.account) {
 
-        } else if (id == R.id.settings) {
+            fragmentClass = MyAccount.class;
 
+        } else if (id == R.id.settings) {
+            fragmentClass = Settings.class;
         } else if (id == R.id.help) {
 
+            fragmentClass = Help.class;
+        }else{
+            fragmentClass = Home.class;
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
         drawer.closeDrawer(GravityCompat.START);
+
+        // Insert the fragment by replacing any existing fragment
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+
         return true;
     }
 }

@@ -2,12 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ke.co.stashare.wipay">
 
+
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
 
     <application
+        android:name=".registration.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -26,7 +30,7 @@
         <activity
             android:name=".ui.Main"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity android:name=".ui.Permission" />
+        <activity android:name=".SOAP.SoapOne"/>
         <activity
             android:name=".ui.MainActivity"
             android:theme="@style/AppThemeC"
@@ -35,7 +39,14 @@
             android:name=".ui.TheMainClass"
             android:theme="@style/AppThemeC"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".ui.PayActivity" />
+
+        <activity android:name=".registration.WipayRegister"
+            android:windowSoftInputMode="stateHidden"
+            android:theme="@style/AppThemeC"/>
+
+        <activity android:name=".ui.PayActivity"
+            android:theme="@style/AppThemeC"/>
+
         <activity android:name=".ui.HomePage" />
         <activity android:name=".ui.UploadImage" />
         <activity
@@ -45,7 +56,6 @@
         <activity android:name=".ui.ShowImagesActivity" />
         <activity
             android:name=".ui.Navigation"
-            android:label="@string/title_activity_navigation"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -53,6 +63,31 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- SMS Receiver -->
+        <receiver android:name=".registration.services.SmsReceiver">
+            <intent-filter android:priority="99999">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+
+
+        <activity
+            android:name=".registration.MainActivity"
+            android:theme="@style/AppThemeC"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateHidden"/>
+
+        <!-- Intent service -->
+        <service
+            android:name=".registration.services.HttpService"
+            android:exported="false" />
+
+        <activity
+            android:theme="@style/AppThemeC"
+            android:windowSoftInputMode="stateHidden"
+            android:name=".registration.SmsActivity"/>
+
     </application>
 
 </manifest>

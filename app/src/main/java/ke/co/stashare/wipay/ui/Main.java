@@ -65,8 +65,7 @@ public class Main extends AppCompatActivity {
 
         paymeth.add("M-PESA");
         paymeth.add("EQUITEL");
-        paymeth.add("AIRTEL MONEY");
-        paymeth.add("ORANGE MONEY");
+
 
         PayMethList payMethList = new PayMethList(paymeth);
 
@@ -105,8 +104,6 @@ public class Main extends AppCompatActivity {
 
                 paymeth.add("M-PESA");
                 paymeth.add("EQUITEL");
-                paymeth.add("AIRTEL MONEY");
-                paymeth.add("ORANGE MONEY");
 
                 PayMethList payMethList = new PayMethList(paymeth);
 
@@ -127,8 +124,7 @@ public class Main extends AppCompatActivity {
 
                 paymeth.add("EQUITEL");
                 paymeth.add("M-PESA");
-                paymeth.add("AIRTEL MONEY");
-                paymeth.add("ORANGE MONEY");
+
 
                 payMethList = new PayMethList(paymeth);
 
@@ -137,47 +133,6 @@ public class Main extends AppCompatActivity {
                 //Toast.makeText(getApplicationContext(), equitel, Toast.LENGTH_SHORT).show();
                 break;
 
-            case R.id.radioButton3:
-
-                paymeth.clear();
-
-                airtel="airtel_paybill";
-
-                SharedPrefManager.getInstance(getApplicationContext()).savePaymeth(airtel);
-
-                paymeth.add("AIRTEL MONEY");
-                paymeth.add("M-PESA");
-                paymeth.add("EQUITEL");
-                paymeth.add("ORANGE MONEY");
-
-                payMethList = new PayMethList(paymeth);
-
-                save_paymeth_list(getApplicationContext(), payMethList);
-
-                //Do something when radio button is clicked
-                //Toast.makeText(getApplicationContext(), airtel, Toast.LENGTH_SHORT).show();
-                break;
-
-            case R.id.radioButton4:
-
-                paymeth.clear();
-
-                orange="orange_paybill";
-
-                SharedPrefManager.getInstance(getApplicationContext()).savePaymeth(orange);
-
-
-                paymeth.add("ORANGE MONEY");
-                paymeth.add("M-PESA");
-                paymeth.add("EQUITEL");
-                paymeth.add("AIRTEL MONEY");
-
-                payMethList = new PayMethList(paymeth);
-
-                save_paymeth_list(getApplicationContext(), payMethList);
-                //Do something when radio button is clicked
-                //Toast.makeText(getApplicationContext(), orange, Toast.LENGTH_SHORT).show();
-                break;
 
 
     }

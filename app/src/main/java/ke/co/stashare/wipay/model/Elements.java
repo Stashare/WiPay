@@ -6,12 +6,49 @@ package ke.co.stashare.wipay.model;
 
 public class Elements {
 
-    private int logo;
+    private String hotspot;
+    private String logo;
     private String title;
+    private String equity;
+    private String mpesa;
     private String desc;
 
+    public void setHotspot(String hotspot) {
+        this.hotspot = hotspot;
+    }
 
-    public int getLogo() {
+    public void setEquity(String equity) {
+        this.equity = equity;
+    }
+
+    public void setMpesa(String mpesa) {
+        this.mpesa = mpesa;
+    }
+
+    public String getHotspot() {
+
+        return hotspot;
+    }
+
+    public String getEquity() {
+        return equity;
+    }
+
+    public String getMpesa() {
+        return mpesa;
+    }
+
+    public Elements(String hotspot, String logo, String title, String equity, String mpesa, String desc) {
+
+        this.hotspot = hotspot;
+        this.logo = logo;
+        this.title = title;
+        this.equity = equity;
+        this.mpesa = mpesa;
+        this.desc = desc;
+    }
+
+    public String getLogo() {
         return logo;
     }
 
@@ -23,7 +60,7 @@ public class Elements {
         return desc;
     }
 
-    public void setLogo(int logo) {
+    public void setLogo(String logo) {
         this.logo = logo;
     }
 

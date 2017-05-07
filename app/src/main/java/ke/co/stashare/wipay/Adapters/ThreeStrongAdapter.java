@@ -1,9 +1,5 @@
 package ke.co.stashare.wipay.Adapters;
 
-/**
- * Created by Ken Wainaina on 31/03/2017.
- */
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
@@ -46,7 +42,7 @@ public class ThreeStrongAdapter extends RecyclerView.Adapter {
     private boolean mWithHeader = false;
     private boolean mWithFirstElement = false;
     private boolean mWithFooter = false;
-    private List<HotSpotDetails> mFeedList;
+    private List<Elements> mFeedList;
     private Context context;
     private  String title2;
     private String desc2;
@@ -54,7 +50,7 @@ public class ThreeStrongAdapter extends RecyclerView.Adapter {
     private String url;
 
 
-    public ThreeStrongAdapter(Context context, List<HotSpotDetails> feedList) {
+    public ThreeStrongAdapter(Context context, List<Elements> feedList) {
         this.context = context;
         this.mFeedList = feedList;
     }
@@ -97,17 +93,17 @@ public class ThreeStrongAdapter extends RecyclerView.Adapter {
         } else if (holder instanceof ElementsViewHolder) {
             ElementsViewHolder elementsViewHolder = (ElementsViewHolder) holder;
 
-            HotSpotDetails elements = mFeedList.get(position);
-            Glide.with(context).load(elements.getUrl()).into( elementsViewHolder.logo);
-            elementsViewHolder.title.setText(elements.getHotspotName());
-            elementsViewHolder.desc.setText(elements.getLocation());
+            Elements elements = mFeedList.get(position);
+            Glide.with(context).load(elements.getLogo()).into( elementsViewHolder.logo);
+            elementsViewHolder.title.setText(elements.getTitle());
+            elementsViewHolder.desc.setText(elements.getDesc());
         } else {
             FirstViewHolder elementsViewHolder = (FirstViewHolder) holder;
 
-            HotSpotDetails elements = mFeedList.get(position);
-            Glide.with(context).load(elements.getUrl()).into( elementsViewHolder.logo);
-            elementsViewHolder.title.setText(elements.getHotspotName());
-            elementsViewHolder.desc.setText(elements.getLocation());
+            Elements elements = mFeedList.get(position);
+            Glide.with(context).load(elements.getLogo()).into( elementsViewHolder.logo);
+            elementsViewHolder.title.setText(elements.getTitle());
+            elementsViewHolder.desc.setText(elements.getDesc());
         }
 
     }
@@ -187,7 +183,7 @@ public class ThreeStrongAdapter extends RecyclerView.Adapter {
         public void onClick(View v) {
 
             if (v.getId() == pay.getId()) {
-                String title = mFeedList.get(getAdapterPosition()).getHotspotName();
+                String title = mFeedList.get(getAdapterPosition()).getTitle();
 
                 String sure = "Paying to " + title +", "+"which isn't within your current location, " + "do you wish to continue?";
 
@@ -199,8 +195,8 @@ public class ThreeStrongAdapter extends RecyclerView.Adapter {
 
                         //Toast.makeText(context,"Proceed to pay dialog",Toast.LENGTH_LONG).show();
 
-                        title2= mFeedList.get(getAdapterPosition()).getHotspotName();
-                        desc2 =  mFeedList.get(getAdapterPosition()).getLocation();
+                        title2= mFeedList.get(getAdapterPosition()).getTitle();
+                        desc2 =  mFeedList.get(getAdapterPosition()).getDesc();
 
                         output = "Paying " + title2 + " (" + desc2 +")";
 
@@ -252,9 +248,9 @@ public class ThreeStrongAdapter extends RecyclerView.Adapter {
         public void onClick(View v) {
 
             if (v.getId() == pay.getId()){
-                title2= mFeedList.get(getAdapterPosition()).getHotspotName();
-                desc2 =  mFeedList.get(getAdapterPosition()).getLocation();
-                url= mFeedList.get(getAdapterPosition()).getUrl();
+                title2= mFeedList.get(getAdapterPosition()).getTitle();
+                desc2 =  mFeedList.get(getAdapterPosition()).getDesc();
+                url= mFeedList.get(getAdapterPosition()).getLogo();
 
                 output = "Paying " + title2 + " (" + desc2 +")";
 

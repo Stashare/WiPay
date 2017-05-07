@@ -11,9 +11,13 @@ import android.widget.Toast;
 import java.util.HashMap;
 import java.util.Map;
 
+import ke.co.stashare.wipay.SOAP.SoapOne;
 import ke.co.stashare.wipay.helper.UtilPermissions;
+import ke.co.stashare.wipay.registration.SmsActivity;
+import ke.co.stashare.wipay.registration.WipayRegister;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.Manifest.permission.READ_SMS;
 
 /**
  * Created by Ken Wainaina on 16/03/2017.
@@ -57,12 +61,12 @@ public class Splash extends AppCompatActivity {
                 }
                 else
   */
-                startActivity(new Intent(Splash.this, HomePage.class));
+                startActivity(new Intent(Splash.this, Main.class));
                 finish();
             }
         };
 
-        String[] PERMISSIONS = { ACCESS_FINE_LOCATION };
+        String[] PERMISSIONS = { ACCESS_FINE_LOCATION, READ_SMS };
 
         if(!UtilPermissions.hasPermissions(this, PERMISSIONS)){
             ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
@@ -86,6 +90,10 @@ public class Splash extends AppCompatActivity {
 
         if((PermissionsMap.get(ACCESS_FINE_LOCATION) != 0)){
             Toast.makeText(this, "Please allow location permission to enjoy our quality services", Toast.LENGTH_LONG).show();
+            finish();
+        }
+        else if ((PermissionsMap.get(READ_SMS) != 0)){
+            Toast.makeText(this, "Please allow read sms to activate your account", Toast.LENGTH_LONG).show();
             finish();
         }
         else

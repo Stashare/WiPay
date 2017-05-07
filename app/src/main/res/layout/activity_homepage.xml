@@ -30,28 +30,18 @@
     </android.support.design.widget.AppBarLayout>
 
 
-    <ScrollView
-        android:paddingEnd="2dp"
-        android:paddingStart="2dp"
-        android:scrollbars="vertical"
-        android:scrollbarSize="50dip"
-        android:fadeScrollbars="false"
-        android:layout_width="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
         android:paddingBottom="13dp"
         android:paddingTop="13dp"
-        android:paddingEnd="40dp"
-        android:paddingStart="40dp"
+        android:paddingEnd="5dp"
+        android:paddingStart="5dp"
         android:scrollbars="none" />
-
-    </ScrollView>
 
 </android.support.design.widget.CoordinatorLayout>

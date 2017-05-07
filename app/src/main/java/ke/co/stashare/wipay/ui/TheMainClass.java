@@ -15,7 +15,9 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
@@ -32,6 +34,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,11 +47,17 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import ke.co.stashare.wipay.Adapters.RecyclerAdapter;
@@ -63,6 +75,8 @@ import ke.co.stashare.wipay.model.OldWifi;
 import ke.co.stashare.wipay.model.PayMethList;
 import ke.co.stashare.wipay.model.SimulateClass;
 import ke.co.stashare.wipay.model.WooiLEVEL;
+import ke.co.stashare.wipay.registration.Config;
+import ke.co.stashare.wipay.registration.MyApplication;
 
 /**
  * Created by Ken Wainaina on 31/03/2017.
@@ -70,11 +84,11 @@ import ke.co.stashare.wipay.model.WooiLEVEL;
 
 public class TheMainClass extends AppCompatActivity implements ThreeStrongAdapter.Callbacks{
 
-    private List<HotSpotDetails> mainList = new ArrayList<>();
+    private List<Elements> mainList;
 
     private List<Elements> mainList2 = new ArrayList<>();
     private Spinner mSpinner;
-    private List<HotSpotDetails> dummyList = new ArrayList<>();
+    private List<Elements> dummyList = new ArrayList<>();
     private List<Elements> dummyList2 = new ArrayList<>();
     private RecyclerView recyclerView;
     Toolbar mToolbar;
@@ -100,13 +114,12 @@ public class TheMainClass extends AppCompatActivity implements ThreeStrongAdapte
     List<ScanResult> old_list;
     List<ScanResult>temp_final;
     List<AddLevel>temp_final2;
-    List<HotSpotDetails> checkWifi;
+    List<Elements> checkWifi;
     List<WooiLEVEL> checki;
     List<Integer> rst;
-
-
     //our database reference object
     DatabaseReference databasePaybills;
+    JSONArray biz;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,6 +155,8 @@ public class TheMainClass extends AppCompatActivity implements ThreeStrongAdapte
         assert actionBar != null;
         actionBar.setTitle("");
         actionBar.setDisplayShowTitleEnabled(true);
+
+        mainList = new ArrayList<>();
 
 
         PayMethList get_payMethList = get_paymethlist(getApplicationContext());
@@ -264,10 +279,10 @@ public class TheMainClass extends AppCompatActivity implements ThreeStrongAdapte
 
 
 
-        SimulateClass get_simu=get_simulatedList(getApplicationContext());
+     /*   SimulateClass get_simu=get_simulatedList(getApplicationContext());
 
         mainList = get_simu.getResults();
-
+*/
 
 
         /*
@@ -425,7 +440,100 @@ public class TheMainClass extends AppCompatActivity implements ThreeStrongAdapte
 
                     final String ssd = reslt.SSID;
 
-                    final Query firebaseRef = FirebaseDatabase.getInstance().getReference("Registered_Hotspots")
+
+                    StringRequest strReq = new StringRequest(Request.Method.POST,
+                            Config.URL_CHECKBIZ, new Response.Listener<String>() {
+
+                        //iterating through all the nodes
+                        ScanResult output_signal;
+
+                        @Override
+                        public void onResponse(String response) {
+                            Log.d(TAG, response);
+
+                            try {
+
+                                JSONObject responseObj = new JSONObject(response);
+
+                                JSONArray jArray = responseObj.getJSONArray("biz");
+
+                                Log.d("TAG2", String.valueOf(jArray.length()));
+
+                                // Parsing json object response
+                                // response will be a json object
+                                boolean error = responseObj.getBoolean("error");
+                                String message = responseObj.getString("message");
+
+
+                              /*  // checking for error, if not error SMS is initiated
+                                // device should receive it shortly
+                                if (!error) {
+
+                                    dialog.dismiss();
+
+
+
+
+
+                                    output_signal = reslt;
+
+                                    temp_final.add(output_signal);
+
+
+                                } else {
+                                    dialog.dismiss();
+                                    Toast.makeText(getApplicationContext(),
+                                            "Error: " + message,
+                                            Toast.LENGTH_LONG).show();
+                                }
+
+*/
+                                // hiding the progress bar
+                                //progressBar2.setVisibility(View.GONE);
+
+                            } catch (JSONException e) {
+                                Toast.makeText(getApplicationContext(),
+                                        "Error: " + e.getMessage(),
+                                        Toast.LENGTH_LONG).show();
+
+                                //progressBar2.setVisibility(View.GONE);
+                            }
+
+                        }
+                    }, new Response.ErrorListener() {
+
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e(TAG, "Error: " + error.getMessage());
+                            Toast.makeText(getApplicationContext(),
+                                    error.getMessage(), Toast.LENGTH_SHORT).show();
+                            //progressBar2.setVisibility(View.GONE);
+                        }
+                    }) {
+
+                        /**
+                         * Passing user parameters to our server
+                         * @return
+                         */
+                        @Override
+                        protected Map<String, String> getParams() {
+                            Map<String, String> params = new HashMap<String, String>();
+                            params.put("hotspotName", ssd);
+
+                            Log.e(TAG, "Posting params: " + params.toString());
+
+                            return params;
+                        }
+
+                    };
+
+                    // Adding request to request queue
+                    MyApplication.getInstance().addToRequestQueue(strReq);
+
+
+
+
+                   /* final Query firebaseRef = FirebaseDatabase.getInstance().getReference("Registered_Hotspots")
                             .orderByChild("hotspotName").equalTo(ssd);
 
                     //attaching value event listener
@@ -462,13 +570,13 @@ public class TheMainClass extends AppCompatActivity implements ThreeStrongAdapte
                                 }
 
 
-                                /*
+                                *//*
                                 (String hotspotId, String hotspotName, String mpesa_paybill,
                                         String equity_acc, String airtel_paybill, String orange_paybill,String location,String url )
                                 (String hotspotId, String hotspotName, String mpesa_paybill, String equity_acc,
                                         String airtel_paybill, String orange_paybill, String location, String url, int level)
 
-                               **/
+                               **//*
                                 //AddLevel addLevel= new AddLevel(checkWifi.get(0),checkWifi.get(1),checkWifi.get(2),checkWifi.get(3),checkWifi.get(4),checkWifi.get(5),checkWifi.get(6),checkWifi.get(7),lev);
 
 
@@ -486,12 +594,12 @@ public class TheMainClass extends AppCompatActivity implements ThreeStrongAdapte
                         }
                     });
 
-                }
+*/                }
 
                 Log.d("TAG_CHECKWIFI", String.valueOf(checkWifi));
 
 
-                checkWifi.clear();
+                //checkWifi.clear();
 
                 Comparator<ScanResult> comp = new Comparator<ScanResult>() {
                     @Override
@@ -628,6 +736,8 @@ public class TheMainClass extends AppCompatActivity implements ThreeStrongAdapte
 
 
     }
+
+
 
 
     public static String convertStringToDBColumns(String type) {

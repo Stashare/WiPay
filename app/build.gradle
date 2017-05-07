@@ -22,6 +22,10 @@ android {
 repositories {
     maven {
         url "https://jitpack.io"
+
+    }
+    maven {
+        url 'https://oss.sonatype.org/content/repositories/ksoap2-android-releases/'
     }
     jcenter()
 }
@@ -32,12 +36,15 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
+
+
     // Using JCenter
     // Using MavenSnapshots repository for continuous updates from my development
     //FlipView
     
 
     compile 'com.yqritc:recyclerview-flexibledivider:1.4.0'
+    compile 'com.google.code.ksoap2-android:ksoap2-android-assembly:3.6.2'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.google.code.gson:gson:2.7'
     compile 'com.android.support:design:25.3.1'
@@ -54,6 +61,7 @@ dependencies {
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.google.firebase:firebase-storage:9.2.1'
     compile 'com.google.firebase:firebase-auth:9.2.1'
+    compile 'com.android.volley:volley:1.0.0'
     compile 'eu.davidea:flexible-adapter:5.0.0-rc1'
     compile 'eu.davidea:flipview:1.1.2'
     testCompile 'junit:junit:4.12'

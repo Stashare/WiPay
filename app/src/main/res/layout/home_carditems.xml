@@ -24,12 +24,12 @@
 
             <ImageView
                 android:id="@+id/icon2"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:scaleType="fitCenter"
-                tools:src="@drawable/ic_sim_white"/>
+                tools:src="@drawable/ic_cash_out"/>
         </LinearLayout>
 
 

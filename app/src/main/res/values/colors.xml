@@ -5,6 +5,13 @@
     <color name="colorAccent">#FF4081</color>
 
 
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="navigationBarColor">#000000</color>
+
+    <color name="bg_view_sms">#ffd423</color>
+    <color name="bg_view_otp">#fc6d38</color>
+
     <color name="type_message_light">#2db199</color>
 
     <color name="type_message_dark">#25917d</color>

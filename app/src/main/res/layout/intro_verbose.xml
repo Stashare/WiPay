@@ -40,23 +40,6 @@
             android:onClick="radioButtonClicked"
             android:text="EQUITEL" />
 
-        <RadioButton
-            android:textColor="@color/cardview_light_background"
-            android:id="@+id/radioButton3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="false"
-            android:onClick="radioButtonClicked"
-            android:text="AIRTEL MONEY" />
-
-        <RadioButton
-            android:textColor="@color/cardview_light_background"
-            android:id="@+id/radioButton4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="false"
-            android:onClick="radioButtonClicked"
-            android:text="ORANGE MONEY" />
 
 
     </RadioGroup>

@@ -11,6 +11,7 @@ public class SharedPrefManager {
 
     private static final String SHARED_PREF_NAME = "WipaySharedPref";
     private static final String SIGNAL = "signal";
+    private static final String ERROR = "error";
     private static final String PAYMENT_METHOD = "payment_method";
     private static final String CURRENT_GITHAA = "current_time";
     private static final String STORE_PAYMETH = "paymeth";
@@ -58,6 +59,21 @@ public class SharedPrefManager {
     public String getPaymentMethod(){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return  sharedPreferences.getString(PAYMENT_METHOD, null);
+    }
+
+    //this method will save the payment method to shared preferences
+    public boolean saveError(String error){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(ERROR, error);
+        editor.apply();
+        return true;
+    }
+
+    //this method will fetch the payment methodfrom shared preferences
+    public String getError(){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return  sharedPreferences.getString(ERROR, null);
     }
 
     //this method will save the payment method to shared preferences

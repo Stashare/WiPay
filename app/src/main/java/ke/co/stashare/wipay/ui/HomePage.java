@@ -38,7 +38,6 @@ public class HomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
 
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             getWindow().setStatusBarColor(getResources().getColor(R.color.type_message_dark));
@@ -99,7 +98,7 @@ public class HomePage extends AppCompatActivity {
 
                 // This check which radio button was clicked
                 switch (item.getTitle()) {
-                    case "Withdrawal":
+                    case "Withdrawal Cash":
 
                         Toast.makeText(getApplicationContext(), "Withdrawal", Toast.LENGTH_LONG).show();
 
@@ -139,19 +138,19 @@ public class HomePage extends AppCompatActivity {
         ArrayList<Home> items = new ArrayList<>();
 
 
-        Home home = new Home(R.drawable.ic_payment_white, R.drawable.backrepeat, "Make Payment","You can now pay to over" +
+        Home home = new Home(R.drawable.ic_payhand, R.drawable.backrepeat, "Make Payment","You can now pay to over" +
                 " 100 businesses & companies countrywide via MPESA, EQUITEL...");
         items.add(home);
 
 
-        home = new Home(R.drawable.ic_wallet_white, R.drawable.withdrawal,"Withdrawal","In partnership with the major banks in the country, cash withdrawal has never been this easy; thanks to Wipay");
+        home = new Home(R.drawable.ic_cash_out, R.drawable.withdrawal,"Withdrawal Cash","In partnership with the major banks in the country, cash withdrawal has never been this easy; thanks to Wipay");
         items.add(home);
 
-        home = new Home(R.drawable.ic_sim_white, R.drawable.backrepeat,"Buy Airtime","Buy airtime for any number, via " +
+        home = new Home(R.drawable.ic_simcard, R.drawable.backrepeat,"Buy Airtime","Buy airtime for any number, via " +
                 "the MPESA or Equitel  ");
         items.add(home);
 
-        home = new Home(R.drawable.ic_account_white,R.drawable.withdrawal, "View Account","Update profile & preferences; " +
+        home = new Home(R.drawable.ic_account_white,R.drawable.withdrawal, "View My Account","Update profile & preferences; " +
                 "check out the mini-statement of all your transactions");
 
         //ADD ITR TO COLLECTION

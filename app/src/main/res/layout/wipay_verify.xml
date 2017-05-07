@@ -1,0 +1,71 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/backrepeat"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".ui.Main">
+
+    <TextView
+        android:id="@+id/textViewVerify"
+        android:lineSpacingExtra="7dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="The Wipay verification code will be detected automatically; If undetected, enter the code manually: "
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+
+    <LinearLayout
+        android:id="@+id/verify_layout"
+        android:gravity="center"
+        android:layout_below="@id/textViewVerify"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:text="Enter Verification Code"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="16sp"/>
+
+
+        <EditText
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/inputOtp"
+            android:maxLength="6"
+        android:layout_width="110dp"
+            android:textAlignment="center"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/inputbox"
+        android:inputType="number"
+        android:padding="10dp"
+        android:textColor="@color/type_message_dark"
+        android:textSize="20sp"/>
+
+        <ProgressBar
+            android:layout_marginTop="10dp"
+            android:id="@+id/progressBar2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_horizontal"
+            android:indeterminateTint="@color/white"
+            android:indeterminateTintMode="src_atop"
+            android:visibility="gone" />
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

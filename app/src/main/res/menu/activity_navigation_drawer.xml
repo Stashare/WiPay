@@ -4,24 +4,27 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/make_payment"
-            android:icon="@drawable/ic_payment_green_72"
+            android:icon="@drawable/ic_payhand"
             android:title="Make Payment" />
         <item
             android:id="@+id/withdrawal"
-            android:icon="@drawable/ic_wallet_green_72"
-            android:title="Withdrawal" />
+            android:icon="@drawable/ic_cash_out"
+            android:title="Withdrawal Cash" />
         <item
             android:id="@+id/buy_airtime"
-            android:icon="@drawable/ic_sim_green_72"
+            android:icon="@drawable/ic_simcard"
             android:title="Buy Airtime" />
+
+    </group>
+
+    <group android:id="@+id/personal">
+        <!-- Divider will appear above this item -->
+
         <item
             android:id="@+id/account"
             android:icon="@drawable/ic_account_green_72"
             android:title="My Account" />
-    </group>
 
-    <group android:id="@+id/my_id">
-        <!-- Divider will appear above this item -->
         <item
             android:id="@+id/settings"
             android:icon="@drawable/ic_setting_green_72"
